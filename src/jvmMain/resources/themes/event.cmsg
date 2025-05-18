@@ -25,5 +25,5 @@ To register use the buttons on this message or head over to {$root_url}.
 {% onEmpty %}
 {% endloop %}
 
--# There are have **{$player_count}** players attending and enough tables for **{$table_space}**.
+-# There are **{$player_count}** players attending and enough tables for **{$table_space}**.
 {#}
