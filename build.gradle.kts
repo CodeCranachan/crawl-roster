@@ -40,7 +40,7 @@ object Versions {
     const val logback = "1.4.5"
     const val uuid = "0.8.2"
     const val jose4j = "0.9.6"
-    const val discord4j = "3.3.0-M2"
+    const val discord4j = "3.3.2"
     const val reactor = "3.7.3"
     const val chunk = "3.6.2"
 }

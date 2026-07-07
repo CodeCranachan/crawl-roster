@@ -63,6 +63,7 @@ class GuildTracker(
             .flatMap { channel ->
                 channel
                     .pinnedMessages
+                    .map { it.message }
                     .flatMap { msg ->
                         if (getEntityName(msg) != null && getEntityName(msg) != getEntityName(channel)
                         ) {
@@ -77,6 +78,7 @@ class GuildTracker(
                             .filter { channel.id == it.parentId.orNull() }
                             .doOnNext(::putEntity)
                             .flatMap { it.pinnedMessages }
+                            .map { it.message }
                     )
             }
             .subscribe(::putEntity)
@@ -125,6 +127,7 @@ class GuildTracker(
                 .createCategory(name)
                 .withReason("Guild is missing $eventCalendarCategoryName category to post Crawl Roster events")
                 .toFuture()
+                .thenApply { it!! }
         }
 
     private fun getEventChannel(event: Event): CompletableFuture<TextChannel> =
@@ -143,6 +146,7 @@ class GuildTracker(
                     )
                     .withReason("New event posted by Crawl Roster")
                     .toFuture()
+                    .thenApply { it!! }
             }
         }
 
@@ -153,6 +157,7 @@ class GuildTracker(
                 channel.createMessage(template.asContent())
                     .doOnNext { it.pin().subscribe() }
                     .toFuture()
+                    .thenApply { it!! }
             }
         }
     }
@@ -163,7 +168,7 @@ class GuildTracker(
                 val spec = StartThreadWithoutMessageSpec.of(name, ThreadChannel.Type.GUILD_PUBLIC_THREAD)
                     .withAutoArchiveDuration(ThreadChannel.AutoArchiveDuration.DURATION4)
                     .withReason("New Table Posted by Crawl Roster")
-                channel.startThread(spec).toFuture()
+                channel.startPublicThreadWithoutMessage(spec).toFuture().thenApply { it!! }
             }
         }
     }
@@ -176,6 +181,7 @@ class GuildTracker(
                     .createMessage(template.asContent())
                     .doOnNext { it.pin().subscribe() }
                     .toFuture()
+                    .thenApply { it!! }
             }
         }
     }
