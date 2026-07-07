@@ -2,7 +2,7 @@
 {% if ($table.details.audience == "Beginner") %}:beginner: **Beginner-friendly Table** :beginner:
 {% endif %}
 Dungeon Master: {$dm.discord_mention}
-Adventure: {$table.details.adventure_title:Mystery Adventure}{% if ($table.details.module_designation) %} ($table.details.module_designation){% endif %}
+Adventure: {$table.details.adventure_title:Mystery Adventure}{% if ($table.details.module_designation) %} ({$table.details.module_designation}){% endif %}
 {% if ($table.details.game_system) %}System: {$table.details.game_system}
 {% endif %}
 {% if ($table.details.audience != "Beginner") %}Player Level: {$table.details.level_range.start} to {$table.details.level_range.end_inclusive}
