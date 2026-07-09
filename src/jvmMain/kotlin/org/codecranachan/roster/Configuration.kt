@@ -1,5 +1,7 @@
 package org.codecranachan.roster
 
+import discord4j.rest.util.Permission
+import discord4j.rest.util.PermissionSet
 import io.ktor.server.sessions.*
 import io.ktor.util.*
 
@@ -12,7 +14,16 @@ object Configuration {
     val jdbcUri = env["ROSTER_JDBC_URI"] ?: "jdbc:h2:mem:test"
     val botToken = env["DISCORD_BOT_TOKEN"]
     val discordCredentials = getClientCreds("DISCORD")
-    val botCoordinates = discordCredentials?.let { BotCoordinates(it.id, 326417522768L) }
+    private val permissions = PermissionSet.of(
+        Permission.MANAGE_CHANNELS,
+        Permission.CREATE_PUBLIC_THREADS,
+        Permission.SEND_MESSAGES_IN_THREADS,
+        Permission.MANAGE_MESSAGES,
+        Permission.PIN_MESSAGES,
+        Permission.MANAGE_THREADS,
+        Permission.ADD_REACTIONS,
+    )
+    val botCoordinates = discordCredentials?.let { BotCoordinates(it.id, permissions.rawValue) }
 
     private val sessionEncryptKey = env["ROSTER_SESSION_ENCRYPT_KEY"] ?: "79EBA26C10A7A6D8B22864DB05987369"
     private val sessionSignKey = env["ROSTER_SESSION_SIGN_KEY"] ?: "2FFBBF335042E92C09B988DF4BC040A5"

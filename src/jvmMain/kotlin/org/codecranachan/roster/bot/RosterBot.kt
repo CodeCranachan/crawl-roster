@@ -9,8 +9,8 @@ import discord4j.core.event.domain.guild.GuildUpdateEvent
 import discord4j.core.event.domain.interaction.InteractionCreateEvent
 import discord4j.core.`object`.component.ActionRow
 import discord4j.core.`object`.component.Button
+import discord4j.core.`object`.emoji.Emoji
 import discord4j.core.`object`.entity.User
-import discord4j.core.`object`.reaction.ReactionEmoji
 import discord4j.discordjson.json.InteractionApplicationCommandCallbackData
 import discord4j.discordjson.json.InteractionResponseData
 import discord4j.rest.util.MultipartRequest
@@ -307,7 +307,7 @@ class RosterBot(val core: RosterCore, botToken: String, rootUrl: String) {
                         )
                         val beginnerButton = Button.secondary(
                             ActiveId(Action.RegisterBeginner, data.event.id).asCustomId(),
-                            ReactionEmoji.of(null, "\uD83D\uDD30", false),
+                            Emoji.unicode("\uD83D\uDD30"),
                             "Join Beginner Table"
                         )
                         add(
